@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A layout example that shows off a responsive photo gallery."
+    />
+        <title>Pixel Editor</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/base-min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+      <h1>Pixel Editor</h1>
+
+      <div class="splash-container"  style="padding: 1em">
+
+        <div class="pure-g" style="padding: 1em">
+
+          <div class="pure-u-1 pure-u-md-1-5">
+            <label for="rows">Rows</label>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-5">
+            <label for="columns">Columns</label>
+          </div>
+        
+          <div class="pure-u-1 pure-u-md-1-5">
+            <label for="color">Selected color</label>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-5">
+            <label for="color">Color palete</label>
+          </div>
+
+        </div>
+
+        <div class="pure-g">
+
+          <div class="pure-u-1 pure-u-md-1-6">
+            <input type='number' id='rows' disabled="disabled" class="pure-input-rounded pure-u-23-24" />
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-6">
+            <input type='number' id='columns' class="pure-u-23-24" />
+          </div>
+        
+          <div class="pure-u-1 pure-u-md-1-6">
+            <input type='color' id='colorvalue'  class="pure-input-rounded pure-u-23-24" >
+            <button id='setcolor' class="pure-button">+</button>  
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-6">
+            <div id='coloroptions'></div>
+          </div>
+
+        </div>
+
+        <div class="pure-g">
+          <div class="pure-u-1" style="margin: 1em">
+            <span>Fill the grid with pixel to pixel, choose a color from pallete, if you want to add one click to '+' button, and to remove a color from palete, make a double click to remove color from it</span>
+          </div>
+        </div>
+        
+
+        <div class="pure-g">
+          <div class='group'>
+            <table id='grid' > </table>
+          </div>
+        </div>
+        
+          
+        <div class="pure-g">
+          <div class="group">
+            <label>Animation Frames: </label>
+          </div>
+
+          <div class='group'>
+            
+            <div class="pure-u-1 pure-u-md-1-5">
+              Frames (double click to remove, right click to overwrite)
+            </div>
+            <div class="pure-u-1 pure-u-md-1-5">
+              Play
+            </div>
+            <div class="pure-u-1 pure-u-md-1-5">
+              Timing:
+            </div>
+            <div class="pure-u-1 pure-u-md-1-5">
+              ¿Repeat in loop?
+            </div>
+          </div>
+
+          <div class='group'>
+            
+            <div class="pure-u-1 pure-u-md-1-5">
+              <span id='frames'></span>
+              
+              <button id='addframe' class=''><i class="fa-solid fa-plus-large"></i></button>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-5">
+              <button id='play'><i class="fa-duotone fa-circle-play"></i></button>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-5">
+              <label for="timing"><i class="fa-regular fa-clock"></i></label> 
+              <input type='number' id='timing'>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-5">
+              <label for="repeat"><i class="fa-solid fa-retweet"></i></label>
+              <input type='checkbox' id='repeat'>
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="pure-u-1 pure-u-md-1-5">
+              Name
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-5">
+              
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-5">
+              
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-5">
+              
+            </div>
+          </div>
+
+          <div class="group">
+
+            <div class="pure-u-1 pure-u-md-1-5">
+              <input id='name' class='' />
+            </div>
+          
+            <div class="pure-u-1 pure-u-md-1-5">
+              <button id='load-btn'><i class="fa-solid fa-upload"></i></button>
+              <button id='save-btn'><i class="fa-regular fa-floppy-disk"></i></button>
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-5">
+              <label for="expand"><i class="fa-solid fa-arrows-left-right-to-line"></i></label>
+              <input type='checkbox' id='expand'>
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-5">
+              <label for="paint"><i class="fa-solid fa-brush"></i></label>
+              
+              <input type="color" id="backgroundcolor" class="pure-input-rounded pure-u-23-24">
+              <input type='checkbox' id='paint' >
+            </div>
+
+          </div>
+
+        <div style="display: none;">
+            
+          <div class='group'>
+            <h4>Frame Data</h4>
+          To Copy as Savedata:<input class='group' id='metadata'/>
+          <br>
+          To Load in savedata:<input id='metadatainput'/>
+          <button id='dataloading'>Load</button>
+          </div>
+            
+            <div class='group'>
+            <h4>Animation Data</h4>
+          To Copy as Savedata:<input class='group' id='animationdata'/>
+          <br>
+          To Load in savedata:<input id='animationdatainput'/>
+          <button id='animationdataloading'>Load</button>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="https://site-assets.fontawesome.com/releases/v6.5.1/js/all.js" data-auto-add-css="false" data-auto-replace-svg="false"></script>
+      <script type="text/javascript" src="js/engine.js" ></script>
+
+    </body>
+</html>
