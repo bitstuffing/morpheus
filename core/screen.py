@@ -122,7 +122,7 @@ class Screen(Buffer):
                 for i in range(len(sliders)):
                     if not self.run_plugins:
                         break
-                    print("call to drawBuffer from drawSliders")
+                    #print("call to drawBuffer from drawSliders")
                     self.drawBuffer(sliders[i].slides[j].buffer, firstColumn=firstColumns[i], show=forceShow)
                 if forceShow:
                     self.pixels.show()

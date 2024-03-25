@@ -7,7 +7,7 @@ import random
 
 class RandomRemoteIcon():
 
-    def __init__(self, screen, firstColumn=0,lastColumn=54):
+    def __init__(self, screen, firstColumn=0,lastColumn=56):
         self.screen = screen
         self.firstColumn = firstColumn
         self.lastColumn = lastColumn
@@ -19,11 +19,20 @@ class RandomRemoteIcon():
         print("stop RANDOM")
         self.running = False
 
-    def run(self):
-
-        #while(self.running):
-        # get a random number from 1 to 59107
-        i = random.randint(1, 59107)
+    def run(self, category="popular"):
+        if category is not None:
+            response = requests.get(f'https://developer.lametric.com/api/v1/dev/preloadicons?page=1&category={category}&search=&count=1000&guest_icons=')
+            res = response.json()
+            i = None
+            max = len(res["icons"])
+            while i is None:
+                x = random.randint(0,max)
+                icon = res["icons"][x]
+                if icon["thumbnail"] != "":
+                    i = icon["id"]
+        else:
+            # get a random number from 1 to 59107
+            i = random.randint(1, 59107)
         print("exploring: ", i)
         slider2 = self.drawRemoteBuffer(i)
         if slider2 is not None:
@@ -49,6 +58,7 @@ class RandomRemoteIcon():
 
                 if self.store and slider2 is not None:
                     slider2.toJsonFile("slides3/")
+        self.running = False
 
 
     def drawRemoteBuffer(self, id=661, show=True):

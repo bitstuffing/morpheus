@@ -6,7 +6,7 @@ REFRESH_TIME = 0.1
 
 class RetroClock(threading.Thread):
     
-    def __init__(self, firstColumn = 0, backgroundColor = (0, 0, 0), pixelColor = (255, 255, 255)):
+    def __init__(self, screen=None, firstColumn = 0, backgroundColor = (0, 0, 0), pixelColor = (255, 255, 255)):
         # 24:24 time is composed of 5 elements of 8x4 pixels
         elements = 8 # TODO, if you want more elements, you need to change the buffer size
         self.buffer =  [backgroundColor for _ in range((elements) * 8*4)]
@@ -14,6 +14,7 @@ class RetroClock(threading.Thread):
         self.pixelColor = pixelColor
         self.running = True
         self.firstColumn = firstColumn
+        self.screen = screen
 
     def stop(self):
         print("stop RETRO")

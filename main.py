@@ -13,32 +13,70 @@ from core.plugins.nyancat import NyanCat
 screen = Screen()
 screen.clear()
 
-screen.drawText("   hello, this is a prove of concern with text and plugins, here we go!   ", (0, 0, 0), (255, 255, 255), True)
+screen.drawText(" starting... ", (0, 0, 0), (255, 255, 255), True)
 screen.showBuffer()
+time.sleep(3)
+screen.clear()
 
-time.sleep(5)
+import random
 
-screen.addPlugin(Rainbow(screen))
-screen.runPlugins()
-time.sleep(10)
-screen.stopPlugins()
-screen.cleanPlugins()
+while True:
 
-time.sleep(1)
-screen.addPlugin(Matrix(screen))
-screen.runPlugins()
-time.sleep(10)
-screen.stopPlugins()
-screen.cleanPlugins()
+    screen.addPlugin(RandomRemoteIcon(screen=screen, firstColumn=0))
+    screen.addPlugin(RetroClock(screen=screen, firstColumn=16))
+    screen.runPlugins()
+    running = True
+    while running:
+        for plugin in screen.plugin_threads:
+            if isinstance(plugin, RandomRemoteIcon):
+                if plugin.running:
+                    time.sleep(1)
+                    running = True
+                else:
+                    running = False
+    screen.stopPlugins()
+    screen.cleanPlugins()
+    time.sleep(1)
 
-time.sleep(1)
-screen.addPlugin(NyanCat(screen))
-screen.runPlugins()
-time.sleep(10)
-screen.stopPlugins()
-screen.cleanPlugins()
+    # now get a random int to select one plugin
+    element = random.randint(0, 3)
+    if element == 0:
+        screen.addPlugin(Rainbow(screen))
+        screen.runPlugins()
+        time.sleep(10)
+        screen.stopPlugins()
+        screen.cleanPlugins()
 
-time.sleep(1)
-screen.addPlugin(Snake(screen))
-screen.runPlugins()
-time.sleep(100000)
+        time.sleep(1)
+    elif element == 1:
+        screen.addPlugin(Matrix(screen))
+        screen.runPlugins()
+        time.sleep(10)
+        screen.stopPlugins()
+        screen.cleanPlugins()
+
+        time.sleep(1)
+    elif element == 2:
+        screen.addPlugin(NyanCat(screen))
+        screen.runPlugins()
+        time.sleep(10)
+        screen.stopPlugins()
+        screen.cleanPlugins()
+
+        time.sleep(1)
+    elif element == 3:
+        screen.addPlugin(Snake(screen))
+        screen.runPlugins()
+        time.sleep(1) #running
+        running = True
+        while running:
+            for plugin in screen.plugin_threads:
+                if plugin.running:
+                    time.sleep(1)
+                    running = True
+                else:
+                    running = False
+        screen.stopPlugins()
+        screen.cleanPlugins()
+        screen.clear()
+

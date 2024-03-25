@@ -3,7 +3,7 @@ import time
 import random
 
 class Snake:
-    def __init__(self, screen, width=64, height=8):
+    def __init__(self, screen, width=64, height=8, firstColumn=0):
         self.screen = screen
         self.width = width
         self.height = height
@@ -11,6 +11,7 @@ class Snake:
         self.directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         self.direction = self.directions[0]
         self.food = None
+        self.firstColumn = firstColumn
         self.buffer =  [(0,0,0) for _ in range(width*height)]
 
     def move(self):
@@ -90,4 +91,6 @@ class Snake:
             # Update the neopixels
             self.screen.drawBuffer(buffer)
 
-            time.sleep(0.1)
+            time.sleep(0.02)
+            
+        self.running = False
